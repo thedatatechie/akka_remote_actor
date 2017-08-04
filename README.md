@@ -1,0 +1,1 @@
+use 'sbt clean assembly'
