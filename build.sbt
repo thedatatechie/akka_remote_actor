@@ -8,6 +8,7 @@ scalacOptions := Seq("-deprecation", "-unchecked", "-optimize", "-feature")
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" % "akka-actor_2.11" % "2.5.3",
+  "com.typesafe.akka" % "akka-cluster_2.11" % "2.5.3",
   "com.typesafe.akka" % "akka-remote_2.11" % "2.5.3"
 )
 
