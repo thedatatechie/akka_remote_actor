@@ -1,0 +1,107 @@
+serverconf {
+  include "common"
+
+  akka {
+    actor{
+      enable-additional-serialization-bindings = on
+      serializers {
+//        java = "akka.serialization.JavaSerializer"
+        proto = "akka.remote.serialization.ProtobufSerializer"
+//        calculatorEvent = "sample.remote.calculator.serialization.CalculatorEventProtoBufSerializer"
+      }
+      serialization-bindings {
+        "java.io.Serializable" = proto
+////        "java.lang.String" = java
+//        "sample.remote.calculator.java.Op$MathOp" = proto //calculatorEvent
+//        "sample.remote.calculator.java.Op$Add" = proto//java //calculatorEvent
+//        "sample.remote.calculator.java.Op$Subtract" = proto//java //calculatorEvent
+      }
+      allow-java-serialization = off
+    }
+
+//    remote.netty.tcp.port = 2552
+
+    artery {
+      canonical.port = 2552
+
+      bind.hostname = "172.17.0.2"//172.17.0.2"//127.0.0.1"//"172.17.0.2"//local.address # internal (bind) hostname
+      bind.port = 2552
+    }
+//    remote.netty.tcp{
+////      hostname = "172.17.0.2"
+//      port = 2552
+//
+//      bind.hostname = "172.17.0.2"//172.17.0.2"//127.0.0.1"//"172.17.0.2"//local.address # internal (bind) hostname
+//      bind.port = 2552
+//    }
+  }
+}
+
+clientconf {
+  include "common"
+
+  akka {
+    actor{
+      enable-additional-serialization-bindings = on
+      serializers {
+//        java = "akka.serialization.JavaSerializer"
+////        jSer = "java.io.Serializable"
+////        akkaSerializer = "akka.serialization.Serializer";
+        proto = "akka.remote.serialization.ProtobufSerializer"
+//        calculatorEvent = "sample.remote.calculator.serialization.CalculatorEventProtoBufSerializer"
+////        kryo = "com.esotericsoftware.kryo.Kryo"
+      }
+      serialization-bindings {
+        "java.io.Serializable" = proto//java//none
+////        "java.lang.String" = proto
+////        "com.google.protobuf.Message" = proto
+////        "sample.remote.calculator.java.Op$MathOp" = jSer//java//calculatorEvent
+////        "sample.remote.calculator.java.Op$Add" = jSer//java//calculatorEvent
+////        "sample.remote.calculator.java.Op$Subtract" = jSer//java//java //calculatorEvent
+      }
+      allow-java-serialization = off
+    }
+
+    remote.netty.tcp.port = 2553
+//    remote.netty.tcp{
+//      hostname = "127.0.0.1"
+//      port = 2553
+//
+//      bind.hostname = "0.0.0.0"//172.17.0.2"//127.0.0.1"//"172.17.0.2"//local.address # internal (bind) hostname
+//      bind.port = 2553
+//    }
+
+//    artery {
+//      //      enabled = on
+//      //      canonical.hostname = sandbox.hortonworks.com      # external (logical) hostname
+//      //      canonical.port = 2553                  # external (logical) port
+//      //
+//      //      bind.hostname = "127.0.0.1"//"172.17.0.2"//local.address # internal (bind) hostname
+//      //      bind.port = 25530              # internal (bind) port
+//      canonical.hostname = sandbox.hortonworks.com      # external (logical) hostname
+//      canonical.port = 25530//                # external (logical) port
+//
+//      bind.hostname = "127.0.0.1"//sandbox.hortonworks.com//"127.0.0.1"//"172.17.0.2"//local.address # internal (bind) hostname
+//      bind.port = 2553//              # internal (
+//    }
+
+  }
+}
+
+
+
+remotecreation {
+  include "common"
+
+  akka {
+    actor {
+      deployment {
+        "/creationActor/*" {
+          remote = "akka.tcp://CalculatorWorkerSystem@127.0.0.1:2552"
+        }
+      }
+    }
+
+    remote.netty.tcp.port = 2554
+  }
+}
