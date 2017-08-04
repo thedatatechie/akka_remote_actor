@@ -1,1 +1,1 @@
-use 'sbt clean assembly'
+use `sbt clean assembly`
