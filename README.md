@@ -17,4 +17,5 @@ Do the following on the server (docker cluster).
 `java -cp AkkaRemoteActors-assembly-1.1.jar com.user.remote.MainServer`
 ### Start the MainClient on the client
 Do this on the client i.e. host.
+
 `java -cp AkkaRemoteActors-assembly-1.1.jar com.user.remote.MainClient`
