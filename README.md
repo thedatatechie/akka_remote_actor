@@ -11,7 +11,9 @@ Run the following commands in the project folder with the Dockerfile.
 ## To submit the job
 ### Start the MainServer on the server (docker cluster)
 Do the following on the server (docker cluster).
+
 `cd /data` then
+
 `java -cp AkkaRemoteActors-assembly-1.1.jar com.user.remote.MainServer`
 ### Start the MainClient on the client
 Do this on the client i.e. host.
